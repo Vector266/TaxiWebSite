@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Удалить поездку{% endblock %}
+{% block content %}
+<h1>Удалить поездку</h1>
+<p>Вы действительно хотите удалить поездку клиента <strong>{{ trip.client }}</strong> с водителем <strong>{{ trip.driver }}</strong>?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Удалить</button>
+  <a href="{% url 'trip_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

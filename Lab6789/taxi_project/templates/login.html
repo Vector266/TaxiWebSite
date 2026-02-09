@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Вход{% endblock %}
+{% block content %}
+<h2 class="mb-4">Вход</h2>
+<form method="post" class="bg-black p-4 rounded border border-warning">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-warning">Войти</button>
+</form>
+{% endblock %}

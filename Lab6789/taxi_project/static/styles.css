@@ -1,0 +1,17 @@
+body {
+    background-color: #121212;
+    color: #f8f9fa;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+.card {
+    background-color: #1e1e1e;
+    border: 1px solid #ffc107;
+}

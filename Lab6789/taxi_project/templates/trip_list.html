@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}История поездок{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center text-warning">История поездок</h2>
+
+    {% if trips %}
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for trip in trips %}
+            <div class="col">
+                <div class="card h-100 border-warning shadow" style="background-color: #000;">
+                    <div class="card-header bg-warning text-dark fw-bold">
+                        Поездка №{{ trip.id }}
+                    </div>
+                    <div class="card-body text-white">
+                        <h5 class="card-title text-warning">
+                            Маршрут:
+                            {% if trip.routes.exists %}
+                                {% for route in trip.routes.all %}
+                                    {{ route.name }}{% if not forloop.last %} → {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                не указан
+                            {% endif %}
+                        </h5>
+                        <p class="card-text">
+                            <strong>Водитель:</strong> {{ trip.driver.name }}<br>
+                            <strong>Клиент:</strong> {{ trip.client.user.get_full_name|default:trip.client.user.username }}<br>
+                            <strong>Начало поездки:</strong> {{ trip.start_time|date:"d.m.Y H:i" }}<br>
+                            <strong>Окончание:</strong> {{ trip.end_time|date:"d.m.Y H:i" }}<br>
+                            <strong>Дистанция:</strong> {{ trip.distance_km }} км<br>
+                            <strong>Стоимость:</strong> {{ trip.cost }} ₽
+                        </p>
+                    </div>
+                    <div class="card-footer bg-dark text-end">
+                        <a href="{% url 'trip_edit' trip.pk %}" class="btn btn-sm btn-warning">Редактировать</a>
+                        <a href="{% url 'trip_delete' trip.pk %}" class="btn btn-sm btn-danger">Удалить</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-light bg-dark p-3 rounded">На данный момент поездок нет.</p>
+    {% endif %}
+</div>
+{% endblock %}
